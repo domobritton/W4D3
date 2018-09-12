@@ -1,6 +1,6 @@
 <% if type == :new %>
   <% button_val = 'Create' %>
-  <% action_url = user_url %>
+  <% action_url = users_url %>
 <% elsif type == :edit %>
   <% button_val = 'Update' %>
   <% action_url = user_url(user) %>
@@ -19,7 +19,7 @@
     type="text"
     name="user[user_name]"
     id="user_name"
-    value="<%= user.user_name %>">
+  >
   <br>
   <label for="password">Password</label>
   <input

@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
+  before_action :require_login, only: [:destroy]
+  before_action :require_logout, only: [:new, :create]
   
-  def new 
+  def new
     @user = User.new 
     render :new 
   end 
@@ -12,7 +14,7 @@ class SessionsController < ApplicationController
       
     if @user
       login!(@user)
-      redirect_to user_url(@user) 
+      redirect_to cats_url 
     else
       flash.now[:errors] = ["Invalid login credentials."]
       render :new 
