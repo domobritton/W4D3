@@ -9,6 +9,26 @@
   </head>
 
   <body>
+    
+    <% if user.logged_in? %>
+      Welcome, <%= current_user.user_name %>!
+      <form action= "<%= session_url %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" name="_method" value="logout">
+      </form>
+      <% else %>
+      <a href="<%= new_session_url %>">Sign In</a>
+      <a href="<%= new_user_url %>">Sign Up</a>
+    <% end %>
+    
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+      <ul>
+        <li> <%= error %></li>
+      </ul>
+      <% end %>
+    <% end %>
+    
     <%= yield %>
   </body>
 </html>
