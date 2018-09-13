@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id              :bigint(8)        not null, primary key
+#  user_name       :string           not null
+#  password_digest :string           not null
+#  session_token   :string           not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
 class User < ApplicationRecord
   validates :user_name, :session_token, presence: true, uniqueness: true 
   validates :password_digest, presence: true 
@@ -12,6 +24,11 @@ class User < ApplicationRecord
     @password = pw 
     self.password_digest = BCrypt::Password.create(pw)
   end 
+  
+  has_many :cats,
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Cat
   
   def ensure_session_token
     self.session_token ||= SecureRandom.urlsafe_base64
